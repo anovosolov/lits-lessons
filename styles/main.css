@@ -1,0 +1,51 @@
+body, html {
+  margin: 0;
+
+  color: #333;
+  font-size: 14px;
+}
+
+main {
+  margin: 20px 0;
+}
+
+.event-card {
+  position: relative;
+  overflow: hidden;
+
+  width: 300px;
+  padding: 10px;
+
+  border: 1px solid #333;
+  border-radius: 10px;
+}
+
+.event-card header {
+  margin: 0 0 10px;
+}
+
+.event-card__title{}
+
+.event-card__datetime {
+  font-size: 1.2rem;
+}
+
+.event-card__ribbon{
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 60px;
+  height: 18px;
+
+  background: red;
+
+  text-align: center;
+  line-height: 18px;
+  color: #fff;
+  font-weight: bold;
+
+  transform: rotate(-45deg);
+  transform-origin: 30px 30px;
+}
+
