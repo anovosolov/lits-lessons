@@ -1,0 +1,89 @@
+
+/* ==========================================================================
+   Calendar styles
+   ========================================================================== */
+.calendar {
+  width: 350px;
+  margin: 20px auto;
+
+  border-radius: 5px;
+  box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.2);
+
+  overflow: hidden;
+}
+
+/*
+   Calendar header
+   ========================================================================== */
+.calendar__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 60px;
+  padding: 20px;
+
+  background-color: $red;
+  color: #fff;
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-transform: uppercase;
+  }
+}
+
+
+
+/*
+   Calendar day
+   ========================================================================== */
+.calendar__day{
+  width: 50px;
+  height: 50px;
+
+  background-color: #fff;
+  border: 1px solid darken($gray, 1);
+  float: left;
+
+  line-height: 50px;
+  text-align: center;
+  color: $day-font-color;
+
+  cursor: pointer;
+
+  &:nth-child(odd) {
+    background-color: $gray;
+  }
+
+  // days from previous/next month aren't clickable
+  &.calendar__day--disabled{
+    color: lighten($day-font-color, 20);
+
+    cursor: none;
+  }
+
+  // checked day
+  &.calendar__day--selected{
+    position: relative;
+
+    span {
+      position: relative;
+    }
+
+    //background: radial-gradient(circle closest-side at center, red 60%, rgba(0,0,0,0) 40%);
+    &::before{
+      content: "";
+
+      position: absolute;
+      top: 25%; left: 25%;
+
+      display: block;
+      width: 50%; height: 50%;
+
+      border-radius: 50%;
+      background: $red;
+    }
+  }
+}
+
