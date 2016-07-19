@@ -1,0 +1,89 @@
+
+/* ==========================================================================
+   Calculator styles
+   ========================================================================== */
+.calculator{
+  width: 400px;
+  margin: 20px auto;
+}
+
+
+
+/* Calculator input element / display
+   ========================================================================== */
+.calculator__display {
+  display: block;
+
+  width: 100%;
+  padding: 0.85em 1em;
+  margin: 20px 0;
+
+  border: 1px solid #2199e8;
+  border-radius: 3px;
+}
+
+  .calculator__display:focus {
+     outline: none;
+     border-color: #2199e8;
+  }
+
+  .calculator__display::-webkit-input-placeholder {
+    color: #ccc;
+  }
+
+
+
+
+/* Calculator tools
+   ========================================================================== */
+.calculator__btn {
+  margin: 0 0 1rem 0;
+  padding: 0.85em 1em;
+
+  border: 1px solid transparent;
+  border-radius: 3px;
+
+  background-color: #2199e8;
+
+  font-size: 0.9rem;
+  color: #fefefe;
+  text-align: center;
+  line-height: 1;
+  vertical-align: middle;
+  cursor: pointer;
+
+  -webkit-appearance: none;
+  transition: background-color 0.25s ease-out, color 0.25s ease-out;
+}
+
+  .calculator__btn:hover{
+    background-color: #1583cc;
+    color: #fefefe;
+  }
+
+  .calculator__btn:focus{
+    outline: none;
+  }
+
+  .calculator__btn[disabled]{
+    opacity: .25;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+
+.calculator__result{
+  padding: 0.85em 1em;
+
+  font-size: 2rem;
+  color: red;
+}
+
+.btns {
+  overflow: hidden;
+  width: 80px;
+}
+
+.btns button {
+  float: right;
+}

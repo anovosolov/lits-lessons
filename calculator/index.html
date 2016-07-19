@@ -3,9 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <title></title>
-  <script src="calculator.js"></script>
+
+  <link rel="stylesheet" href="styles/normalize.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/calculator.css">
+
 </head>
 <body>
+    <div id="calculator" class="calculator">
+      <input class="calculator__display" type="text" name="expression" placeholder="1+1">
+
+      <button class="calculator__btn js-clear">clear</button>
+      <button class="calculator__btn js-calculate" disabled>=</button>
+
+      <span class="calculator__result"></span>
+    </div>
+
+    <script src="js/calculator.js"></script>
+    <script src="js/main.js"></script>
 
 </body>
 </html>
