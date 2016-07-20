@@ -1,0 +1,104 @@
+$blue: #2199e8;
+$gray: #fefefe;
+$placeholder-color: #ccc;
+
+/* ==========================================================================
+   Calculator styles
+   ========================================================================== */
+.calculator{
+  width: 215px; // 3 buttons with width set to 50px = 150 + 2 margins between buttons sets to 5px = 160px
+
+  margin: 20px auto;
+}
+
+
+
+/* Calculator input element / display
+   ========================================================================== */
+.calculator__display {
+  display: block;
+  width: 160px;
+
+  padding: 0.85em 1em;
+  margin: 0;
+
+  border: 1px solid $blue;
+  border-radius: 3px;
+
+  // & means calculator__display
+  // so if we don't want to write separate rule calculator__display:hover
+  // we can use & inside of calculator__display classname
+  &:focus {
+    outline: none;
+    border-color: darken($blue, 10); // 10% darker than $blue
+  }
+
+  &::-webkit-input-placeholder {
+    color: $placeholder-color;
+  }
+}
+
+
+
+/* Calculator single button
+   ========================================================================== */
+.calculator__btn {
+  width: 50px;
+  height: 50px;
+
+  border: 1px solid transparent;
+  border-radius: 3px;
+
+  background-color: $blue;
+
+  font-size: 1.5rem;
+  color: $gray;
+  text-align: center;
+  line-height: 50px;
+  cursor: pointer;
+
+  -webkit-appearance: none;
+  transition: background-color 0.25s ease-out, color 0.25s ease-out;
+
+  &:hover{
+    background-color: lighten($blue, 10); // 10% lighter than $blue
+    color: $gray;
+  }
+
+  &:focus{
+    outline: none;
+    background-color: darken($blue, 20);
+  }
+
+  &[disabled]{
+    opacity: .25;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+.calculator__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+/* Calculator body wrapper
+   ========================================================================== */
+.calculator__body {
+  overflow: hidden;
+  margin: 20px 0;
+
+  .calculator__btn{
+    margin-bottom: 5px;
+    margin-right: 5px;
+
+    float: right;
+
+    &:nth-child(4n+1) {
+      margin-right: 0; // remove margin on each first button from right in row
+    }
+  }
+}
+
+

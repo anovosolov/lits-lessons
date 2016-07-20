@@ -1,0 +1,79 @@
+/* ==========================================================================
+   General styles
+   ========================================================================== */
+body, html {
+  font-size: 14px;
+  color: #333; }
+
+/* ==========================================================================
+   Main header
+   ========================================================================== */
+.main-header h1 {
+  text-align: center;
+  color: #2199e8; }
+
+/* ==========================================================================
+   Calculator styles
+   ========================================================================== */
+.calculator {
+  width: 215px;
+  margin: 20px auto; }
+
+/* Calculator input element / display
+   ========================================================================== */
+.calculator__display {
+  display: block;
+  width: 160px;
+  padding: 0.85em 1em;
+  margin: 0;
+  border: 1px solid #2199e8;
+  border-radius: 3px; }
+  .calculator__display:focus {
+    outline: none;
+    border-color: #147dc2; }
+  .calculator__display::-webkit-input-placeholder {
+    color: #ccc; }
+
+/* Calculator single button
+   ========================================================================== */
+.calculator__btn {
+  width: 50px;
+  height: 50px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background-color: #2199e8;
+  font-size: 1.5rem;
+  color: #fefefe;
+  text-align: center;
+  line-height: 50px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  transition: background-color 0.25s ease-out, color 0.25s ease-out; }
+  .calculator__btn:hover {
+    background-color: #4faeed;
+    color: #fefefe; }
+  .calculator__btn:focus {
+    outline: none;
+    background-color: #0f5f94; }
+  .calculator__btn[disabled] {
+    opacity: .25;
+    cursor: not-allowed;
+    pointer-events: none; }
+
+.calculator__header {
+  display: flex;
+  justify-content: space-between; }
+
+/* Calculator body wrapper
+   ========================================================================== */
+.calculator__body {
+  overflow: hidden;
+  margin: 20px 0; }
+  .calculator__body .calculator__btn {
+    margin-bottom: 5px;
+    margin-right: 5px;
+    float: right; }
+    .calculator__body .calculator__btn:nth-child(4n+1) {
+      margin-right: 0; }
+
+/*# sourceMappingURL=main.css.map */
