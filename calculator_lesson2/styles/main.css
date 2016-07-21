@@ -60,6 +60,11 @@ body, html {
     cursor: not-allowed;
     pointer-events: none; }
 
+.calculator__btn--action {
+  background-color: #7dc3f2; }
+
+/* Calculator display
+   ========================================================================== */
 .calculator__header {
   display: flex;
   justify-content: space-between; }

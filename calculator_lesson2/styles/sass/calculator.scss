@@ -77,6 +77,15 @@ $placeholder-color: #ccc;
   }
 }
 
+.calculator__btn--action{
+  background-color: lighten($blue, 20);
+}
+
+
+
+
+/* Calculator display
+   ========================================================================== */
 .calculator__header {
   display: flex;
   justify-content: space-between;

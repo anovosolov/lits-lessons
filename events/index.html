@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+
+  <style>
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .main-header {
+      padding: 20px 0;
+      border: 1px solid #2199e8;
+    }
+
+    .navigation {
+      overflow: hidden;
+    }
+
+    .navigation__link {
+      width: 200px;
+      height: 50px;
+
+      float: left;
+      margin: 0 10px;
+
+      border: 1px solid transparent;
+      border-radius: 3px;
+
+      background-color: #2199e8;
+
+      font-size: 1.5rem;
+      color: #fff;
+      text-align: center;
+      line-height: 50px;
+      cursor: pointer;
+
+      -webkit-appearance: none;
+      transition: background-color 0.25s ease-out, color 0.25s ease-out;
+    }
+
+    .navigation__link:hover {
+      background-color: #166fac;
+    }
+
+    .navigation__link a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+  </style>
+</head>
+<body>
+<header class="main-header">
+  <nav class="navigation">
+    <ul>
+      <li class="navigation__link"><a href="http://google.com">Google</a></li>
+      <li class="navigation__link"><a href="http://google.com">Yandex</a></li>
+      <li class="navigation__link"><a href="http://google.com">Yahoo</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!--
+  В обробітник події addEventListener ми отримуємо на вході обєкт event. Це наша подія
+
+  У нас є три обробітники події click і вони навішені на три елементи
+  Подія вспливає від елементу event.target, що ініціював її, і до самого верху (в кінці це буде window)
+
+  Ми можем зловити подію по дорозі вгору за допомогою addEventListener
+  event.currentTarget вказуватиме нам на той елемент, на якому спрацьовує даний обробітник події
+  event.target завжди вказуватиму на той елемент, на якому подія відбулась. Це завжди найнищий по рівню
+  вкладеності елемент під вашим курсором мишки
+
+  Можем також перехопити подію коли вона рухається навпаки зверху вниз. Це попередня стадія до вспливання події. Для цього ми передаємо
+  в addEventListener третій параметер true
+
+  Тобто, в нас спочатку відбувається стадія перехоплення події capturing stage (коли вона опускається від window до event.target),
+  потім стадія цілі target stage (ми знаходимся на елементі event.target, той що ініціював подію) і далі наша подія починає вспливати
+  вгору - стадія вспливання події bubbling stage.
+-->
+<script>
+  var header = document.querySelector('.main-header'),
+      navigation = document.querySelector('.navigation'),
+      navigationLink = document.querySelector('.navigation__link a');
+
+  header.addEventListener("click", function (event) {
+    console.log("Header click event: target = " + event.target.tagName + ", currentTarget = " + event.currentTarget.tagName);
+  });
+
+  navigation.addEventListener("click", function (event) {
+    console.log("Nav click event: target = " + event.target.tagName + ", currentTarget = " + event.currentTarget.tagName);
+  });
+
+  navigationLink.addEventListener("click", function (event) {
+    console.log("Link click event: target = " + event.target.tagName + ", currentTarget = " + event.currentTarget.tagName);
+  });
+</script>
+
+
+<!--
+
+  Напростіший приклад делегування події.
+  Ми слухаємо подію click на батьківському елементі header і виводимо значення лінків.
+
+  Це дозволяє нам уникнути потреби писати обробітники подій для кожного тегу A окремо.
+  Всі кліки за межами тегів нас не цікавлять і ми, завдяки перевірці event.target.tagName !== "A", відсіваємо такі елементи
+
+  Зверніть увагу на <a href="http://google.com">Google</a>. Якщо ми не хочемо перейти по лінку,
+  то треба скасувати поведінку бровзера по замовчеванню і використати  event.preventDefault()
+
+-->
+<!--<script>
+  var header = document.querySelector('.main-header');
+
+  header.addEventListener("click", function (event) {
+    if (event.target.tagName !== "A") return;
+    alert(event.target.textContent);
+  });
+</script>-->
+
+
+<!--
+
+  Складніший приклад делегування події.
+
+  Приклад того, як отримати потрібен елемент під час вспливання події
+  Отже, ми делегуємо подію. Цільовим елементом є найнижчий по рівню вкладеності, але нам потребен не він.
+  Тому ми просуваємось вгору по елементах (беручи постійно батьківський елемент поточного елементу)
+  і перевіряємо чи ми зайшли той, що нам треба. Рухаємось так, поки не дійдемо до елемента, на який повішено обробітник.
+
+
+  Також в цьому прикладі ми скасовуємо подію переходу на лінку, що є поведінкою бровзера по замовчуванню.
+  Робимо це за допомогою event.preventDefault()
+
+-->
+<!--<script>
+  var header = document.querySelector('.main-header');
+
+  header.addEventListener("click", function (event) {
+    var target = event.target;
+    while (target != event.currentTarget) {
+
+      if (target.tagName === "A") {
+        var isLeaving = confirm("Do you really want to leave this page?");
+        if (!isLeaving) {
+          event.preventDefault();
+        }
+
+        return;
+      }
+
+      target = target.parentNode;
+    }
+  });
+
+</script>-->
+
+
+
+<!--
+
+  У нас є дві події, що можуть повідомити нас про стан завантаження DOM
+
+  * document.addEventListener("DOMContentLoaded", function(){}) спрацьовує коли DOM готовий до роботи.
+  Ми не чекаємо тут на завантаження медіа
+
+  * window.onload спрацьовує коли DOM готовий до роботи + завантажено весь медіа контент
+
+  На практиці переважно не чекають на весь контент і стартують код коли готовий DOM.
+  Ці події дають нам змогу тримати наш скрипт будь-де по файлу, тепер нам можна не переживати чи буде згенеровано DOM до виклику скрипта
+
+-->
+<!--<script>
+  document.addEventListener("DOMContentLoaded", ready);
+
+  function ready(){
+    var header = document.querySelector('.main-header');
+    console.log("Yes, we have header!", header);
+  }
+
+</script>-->
+
+</body>
+</html>
