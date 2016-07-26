@@ -1,4 +1,5 @@
-
+/* ---------------------- Створення обєкту, конструктор --------------------------------------------------------------*/
+/*
 // Найпростіший спосіб створити об'єкт - використати {}
 var user_a = {
   id: Date.now(),
@@ -55,11 +56,12 @@ console.log(user.getFullName());
 
 // тепер наш обєкт user має специфічний визначений нами тип User
 console.log(user instanceof User);
+*/
 
 
-
-// в конструктор можна передавати дані і будувати обєкт на основі них
-// саме так можна побудувати як завгодно багато різних обєктів одного типу
+/* ---------------------- Iніціалізація обєкта через параметри --------------------------------------------------------*/
+// В конструктор можна передавати дані і будувати обєкт на основі них
+// Саме так можна побудувати як завгодно багато різних обєктів одного типу
 /*
 function User(name, lastName){
   this.id = Date.now();
@@ -75,7 +77,7 @@ function User(name, lastName){
 var user = new User("Zoe", "Saldana");
 console.log(user.getFullName());*/
 
-//Чи передати туди обєкт з даними для ініціалізації
+// Чи передати туди обєкт з даними для ініціалізації
 
 /*
  function User(userData){
@@ -97,7 +99,7 @@ console.log(user.getFullName());*/
  });*/
 
 
-// статичні, приватні та публічні методи
+/* ---------------------- Статичні, публічні, приватні методи --------------------------------------------------------*/
 // console.log(user.getFullName()); // публічний метод, доступний до виклику зовні
 // User.totalAmount = 0; // статична змінна, не привязана до конкретного обєкту
 // User.ROLE = "actor"; // статична змінна-константа
@@ -118,3 +120,75 @@ function User(userData){
     return this.name + " " + this.last_name;
   }
 }*/
+
+
+/* ---------------------- Ключеве слово this -------------------------------------------------------------------------*/
+
+// this не залежить від конткретного обєкту, воно залежить від контексту виклику і саме в момент виклику ми можем
+// визначити на який елемент вказуватиме this, не раніше
+
+// Можливі 4 варіанти:
+//
+// 1. Якщо функція викликається через new як конструктор об'єкта, то this вказуватиме на створений об'єкт:
+function User(name, lastName){
+  this.name = name;
+  this.last_name = lastName;
+  console.log(this, this.name);
+}
+
+var user = new User("Benedict", "Cumberbatch");
+
+
+// 2. Якщо функція є методом об'єкта, то this буде посиланням на цей об'єкт:
+var userA = {
+  name: "Zoe",
+  dateOfBirth: "02-17-1978"
+};
+
+var userB = {
+  name: "Mark",
+  dateOfBirth: "02-17-1978"
+};
+
+var getName = function (){
+  console.log(this, this.name);
+};
+
+userA.getName = getName;
+userB.getName = getName;
+
+userA.getName();
+userB.getName();
+
+//getName(); // this тут вказуватиме на window так як функція виконується в глобальному скоупі
+
+
+// 3. Явно задати this через call/apply
+getName.call(userA); // перший параметер call - це явно вказаний обєкт, який має служити як this для нашої функції
+
+var getInfo = function(firstPart, secondPart){
+  console.log("This is " + this[firstPart] + " and she/he was born on " + this[secondPart]);
+};
+
+getInfo.call(userA, "name", "dateOfBirth"); // решта параметрів - це назви властивостей обєкту, які будуть викорстані у функції
+
+// приклад з життя
+// найчастіше call викликається для того, щоб 'позичити' метод
+// наприклад, ми знаємо, що getElementsByTagName поверне нам не класичний масив і тому, нарпиклад, дуже зручний метод
+// перебору елементів масиву forEach не працюватиме. Давайте позичимо цей метод в Array для нашого результату виклику getElementsByTagName
+
+var elements = document.getElementsByTagName("div");
+/*elements.forEach(function(element){
+  console.log(element);
+});*/
+
+/*[].forEach.call(elements, function(element){
+  console.log(element);
+});*/
+
+
+//[].slice.call(arguments);
+//[].slice.apply(arguments, [param1, param2]);
+// getInfo.call(userA, ["name", "dateOfBirth"]); // apply працює ідентично до call, лише тепер ми можем контролювати
+// кількість переданих параметрів
+
