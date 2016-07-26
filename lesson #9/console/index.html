@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console</title>
+
+</head>
+<body>
+
+  <script>
+
+    // we can listen for all errors here and perform needed actions
+    window.onerror = function(message, url, lineNumber){
+      console.log("We caught an error! ", message, "At ", url, lineNumber);
+    };
+
+
+    // lets declare some variable
+    var a = "test";
+
+    // Print out data you want to see
+    console.log("Let's check our variable a = ", a);
+
+    // Prints a message like console.log() but also shows an icon (blue circle with white “i”) next to the output.
+    console.info("Just a piece of information");
+
+    // Prints a message like console.log(), but also displays a yellow warning icon next to the logged message.
+    console.warn("Be careful using variables declared after expression. You will get undefined.");
+
+    // Prints a message similar to console.log(), styles the message like an error, and includes a stack trace from where the method was called.
+    a = undefined;
+    if (a === undefined){
+      console.error("Varible a is not defined! Script will crash!");
+    }
+
+    //console.clear();
+
+
+
+    /*var data = "Has Error"; // that's not a json, but lets pretend we don't know that
+
+    try {
+      // throw new SyntaxError("Bad data!");
+
+      var user = JSON.parse(data); // lets try to read as Json
+      console.log(user.name); // Error! We can't parse data!
+
+    } catch (e) {
+      console.warn("Sorry, we got bad data and couldn't read it. We will try again.");
+      console.log("Error name: ", e.name);
+      console.log("Error message: ", e.message);
+      console.log("Error stack trace: ", e.stack);
+    }
+    finally {
+      console.log("Finally! This block will execute in both situations - we don't have error, we caught error")
+    }*/
+
+
+  </script>
+
+</body>
+</html>
