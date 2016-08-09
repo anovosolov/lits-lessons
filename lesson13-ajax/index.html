@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lesson 13: AJAX</title>
+</head>
+<body>
+
+   <form action="https://jsonplaceholder.typicode.com/posts" method="POST">
+     <input name="title" value="foo" type="text" />
+     <input name="userId" value="1" type="text" />
+     <input name="body" value="foo" type="text" />
+     <input type="submit" value="Submit"/>
+   </form>
+
+
+<!--  <script>
+/*    var user = '{ "name": "Sam", "age": 35, "isAdmin": false, "family": [{ "name": "Sara", "age": 20}, { "name": "Melisa", "age": 30}]}';
+    userParsed = JSON.parse(user);
+
+    console.log(userParsed.age, userParsed.family);
+
+    var car = {
+      id: 0,
+      title: "Audi",
+      date: new Date().toDateString(),
+      owner: "Sam Brown"
+    };
+
+    var carJSONStr = JSON.stringify(car);
+    console.log(carJSONStr);*/
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.addEventListener("progress", updateProgress);
+    xhr.addEventListener("load", transferComplete);
+    xhr.addEventListener("error", transferFailed);
+    xhr.addEventListener("abort", transferCanceled);
+    xhr.addEventListener("loadend", loadEnd);
+
+
+    //var data = "title='foo'&body='bar'&userId=1";
+    //xhr.open('POST', 'https://jsonplaceholder.typicode.com/posts');
+    //xhr.send(data);
+    //var data = new FormData();
+    //data.append('title', 'foo');
+    //data.append('body', 'bar');
+    //data.append('userId', 1);
+
+    xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts');
+    xhr.send();
+
+    //document.body.innerHTML = "Loading...";
+
+    // progress on transfers from the server to the client (downloads)
+    function updateProgress (event) {
+      if (event.lengthComputable) {
+        var percentComplete = event.loaded / event.total;
+        console.log('Transfer progress: ' + percentComplete);
+      } else {
+        // Unable to compute progress information since the total size is unknown
+        console.log('Was loaded: ' + event.loaded );
+      }
+    }
+
+    function transferComplete(evt) {
+      console.log("The transfer is complete.");
+      if (this.status == 200) {
+        var posts = JSON.parse(xhr.responseText);
+        console.log(posts);
+
+        document.body.innerHTML = "Loaded!";
+      }
+      else{
+        console.log('Error ' + xhr.status + ': ' + xhr.statusText);
+      }
+    }
+
+    function transferFailed(event) {
+      console.log("An error occurred while transferring the file.");
+    }
+
+    function transferCanceled(event) {
+      console.log("The transfer has been canceled by the user.");
+    }
+
+    function loadEnd(e) {
+      console.log("The transfer finished (although we don't know if it succeeded or not).");
+    }
+
+
+
+  </script>-->
+</body>
+</html>
