@@ -1,16 +1,3 @@
 {
-  "comments": [
-    {
-      "id": 1,
-      "name": "Sara",
-      "email": "sara@gmail.com",
-      "message": "test"
-    },
-    {
-      "name": "Khrystia",
-      "email": "christina.skvarok@gmail.com",
-      "message": "test",
-      "id": 2
-    }
-  ]
+  "comments": []
 }
