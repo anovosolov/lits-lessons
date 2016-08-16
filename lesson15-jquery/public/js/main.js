@@ -32,11 +32,11 @@ function ready() {
     event.preventDefault();
 
     var xhr = new XMLHttpRequest(),
-      data = {
-        name: commentForm.name.value,
-        email: commentForm.email.value,
-        message: commentForm.message.value
-      };
+        data = {
+          name: commentForm.name.value,
+          email: commentForm.email.value,
+          message: commentForm.message.value
+        };
 
     // видалимо пробіли з початку та кінця рядка
     // також за допомогою регулярного виразу видалимо будь-які теги, якщо такі були внесені
@@ -78,10 +78,10 @@ function ready() {
     commentElement.setAttribute("data-id", data.id);
     commentElement.className = "comment";
     commentElement.innerHTML = "<header>" +
-      "Comment added by " + data.name +
-      "</header><p>" + data.message +
-      "</p>" +
-      "<footer class='comment__tools'><button class='btn btn--circle js-remove'>&cross;</button></footer>";
+        "Comment added by " + data.name +
+        "</header><p>" + data.message +
+        "</p>" +
+        "<footer class='comment__tools'><button class='btn btn--circle js-remove'>&cross;</button></footer>";
 
     commentList.insertBefore(commentElement, commentList.firstChild);
   }
@@ -108,15 +108,14 @@ function ready() {
   function onRemoveBtnClick(event){
     var target = event.target;
 
-    // рухаємось по дереву елементів від кнопки вгору (берцчи батька, батька батька і тд), щоб знайти наш коментар .comment
     if (target.classList.contains("js-remove")){
       while (target != event.currentTarget) {
         target = target.parentNode;
-        if (target.classList.contains("comment")) break; // знайшли коментар .comment і розриваємо цикл while. На даному кроці в target записано саме елемент коментар
+        if (target.classList.contains("comment")) break;
       }
 
       var xhr = new XMLHttpRequest();
-      xhr.addEventListener('load', function(){removeComment(target)}); //використаємо замикання, щоб отримати target
+      xhr.addEventListener('load', function(){removeComment(target)});
       xhr.addEventListener('error', transferFailed);
 
       xhr.open("DELETE","/comments/" + target.getAttribute("data-id"));
@@ -129,6 +128,7 @@ function ready() {
    * @param target
    */
   function removeComment(target) {
+    console.log(event);
     commentList.removeChild(target);
   }
 
