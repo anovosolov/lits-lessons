@@ -1,0 +1,102 @@
+/*
+   Form elements
+   ========================================================================== */
+form {
+  border: none;
+
+  width: 100%;
+  margin: 20px auto;
+
+  text-align: center;
+
+  & > div {
+    margin: 20px;
+  }
+}
+
+input, textarea, .btn {
+  width: 100%;
+  padding: 10px;
+
+  line-height: 1.2;
+
+  border-radius: 8px;
+  border: 1px solid $dark-blue;
+  background-color: transparent;
+
+  -webkit-appearance: none;
+  transition: color 0.25s ease-out;
+
+  &:focus{
+    outline: none;
+    border-color: $red;
+  }
+
+  &[disabled]{
+    opacity: .25;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+textarea {
+  min-height: 100px;
+}
+
+input:invalid:not(:focus):not(:placeholder-shown),
+textarea:invalid:not(:focus):not(:placeholder-shown) {
+  border: 1px solid $red;
+}
+
+input:valid, textarea:valid  {
+  border: 1px solid green;
+}
+
+input[type=submit]{
+  border: none;
+}
+
+
+
+/*
+   Sys notifications
+   ========================================================================== */
+.notification {
+  font-size: 0.8rem;
+  margin: 5px 0;
+  font-style: italic;
+  text-align: left;
+}
+
+.notification--error {
+  color: $red;
+}
+
+
+
+/*
+   Button
+   ========================================================================== */
+.btn{
+  width: auto;
+
+  border-color: transparent;
+  background-color: $red;
+  color: #fff;
+
+  text-align: center;
+
+  &:hover, &:focus{
+    border-color: transparent;
+    background-color: darken($red, 5%);
+  }
+}
+
+.btn.btn--circle {
+  width: 30px; height: 30px;
+  line-height: 30px;
+
+  padding: 0;
+
+  border-radius: 100%;
+}

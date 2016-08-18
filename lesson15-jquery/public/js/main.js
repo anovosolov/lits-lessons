@@ -1,13 +1,14 @@
-document.addEventListener("DOMContentLoaded", ready);
+$(document).ready(ready);
+
 
 function ready() {
-  var commentForm = document.querySelector(".comment-form");
-  commentForm.addEventListener("submit", createComment);  // слухаємо подію submit форми
-                                                          // (вона виникає при натисканні на <input type="submit">
-                                                          // або при натисканні Enter)
+  var commentForm = $(".comment-form");
+  commentForm.on("submit", createComment);  // слухаємо подію submit форми
+  // (вона виникає при натисканні на <input type="submit">
+  // або при натисканні Enter)
 
-  var commentList = document.querySelector(".comment-list");
-  commentList.addEventListener("click", onRemoveBtnClick);
+  var commentList = $(".comment-list");
+  commentList.on("click", "button.js-remove", onRemoveBtnClick);
 
   getAllComments(); // дістаємо всі коментарі з бази  даних
 
@@ -15,28 +16,25 @@ function ready() {
   /**
    * Get all comments from server
    */
-  function getAllComments(){
-    var xhr = new XMLHttpRequest();
-
-    xhr.addEventListener("load", commentsReceived);
-    xhr.addEventListener("error", transferFailed);
-
-    xhr.open('GET', '/comments');
-    xhr.send();
+  function getAllComments() {
+    $.get('/comments')
+    .done(function(data) {
+      commentsReceived(data)
+    })
+    .fail(transferFailed);
   }
 
   /**
    * Save new command - send data to server
    */
-  function createComment(event){
+  function createComment(event) {
     event.preventDefault();
 
-    var xhr = new XMLHttpRequest(),
-        data = {
-          name: commentForm.name.value,
-          email: commentForm.email.value,
-          message: commentForm.message.value
-        };
+    var data = {
+      name: commentForm.find("input[name='name']").val(),
+      email: commentForm.find("input[name='email']").val(),
+      message: commentForm.find("textarea[name='message']").val()
+    };
 
     // видалимо пробіли з початку та кінця рядка
     // також за допомогою регулярного виразу видалимо будь-які теги, якщо такі були внесені
@@ -47,24 +45,27 @@ function ready() {
 
     // валідація повідомлення
     // перевіряємо чи воно не пусте, якщо так - показуємо повідомлення помилки
-    if (data.message == ""){
+    if (data.message == "") {
       showError("Please, don't leave message body empty!");
       return false;
     }
 
-    xhr.addEventListener("load", commentSaved);
-    xhr.addEventListener("error", transferFailed);
-
-    xhr.open('POST', '/comments');
-    xhr.setRequestHeader("Content-type", "application/json");
-    xhr.send(JSON.stringify(data));
+    $.ajax({
+      url: '/comments',
+      method: "post",
+      contentType: "application/json",
+      data: JSON.stringify(data)
+    })
+      .done(function(data) {
+        commentSaved(data)
+      })
+      .fail(transferFailed);
   }
 
   /**
    * Comment was saved on server and we can add it
    */
-  function commentSaved(){
-    var data = JSON.parse(this.responseText);
+  function commentSaved(data) {
     drawComment(data);
   }
 
@@ -72,55 +73,40 @@ function ready() {
    * Create comment dom node and add to list
    * @param data
    */
-  function drawComment(data){
-    var commentElement = document.createElement("article");
+  function drawComment(data) {
+    var commentElement = $("<article class='comment'><header>" + data.name +
+      "</header><p>" + data.message +
+      "</p><footer class='comment__tools'>" +
+      "<button class='btn btn--circle js-remove'>&cross;</button></footer></article>");
 
-    commentElement.setAttribute("data-id", data.id);
-    commentElement.className = "comment";
-    commentElement.innerHTML = "<header>" +
-        "Comment added by " + data.name +
-        "</header><p>" + data.message +
-        "</p>" +
-        "<footer class='comment__tools'><button class='btn btn--circle js-remove'>&cross;</button></footer>";
-
-    commentList.insertBefore(commentElement, commentList.firstChild);
+    commentElement.attr("data-id", data.id);
+    commentList.prepend(commentElement);
   }
 
   /**
    * All comments were received from server
    */
-  function commentsReceived() {
-    if (this.status >= 200) {
-      var comments = JSON.parse(this.responseText);
-      comments.forEach(function(comment){
-        drawComment(comment);
-      })
-    }
-    else {
-      transferFailed();
-    }
+  function commentsReceived(comments) {
+    comments.forEach(function (comment) {
+      drawComment(comment);
+    });
   }
 
   /**
    * Listen remove btn click and send DELETE request to server
    * @param event
    */
-  function onRemoveBtnClick(event){
-    var target = event.target;
+  function onRemoveBtnClick(event) {
+    var comment = $(this).parents(".comment");
 
-    if (target.classList.contains("js-remove")){
-      while (target != event.currentTarget) {
-        target = target.parentNode;
-        if (target.classList.contains("comment")) break;
-      }
-
-      var xhr = new XMLHttpRequest();
-      xhr.addEventListener('load', function(){removeComment(target)});
-      xhr.addEventListener('error', transferFailed);
-
-      xhr.open("DELETE","/comments/" + target.getAttribute("data-id"));
-      xhr.send();
-    }
+    $.ajax({
+      method: "DELETE",
+      url: "/comments/" + comment.attr("data-id")
+    })
+    .done(function () {
+      removeComment(comment)
+    })
+      .fail(transferFailed);
   }
 
   /**
@@ -128,8 +114,7 @@ function ready() {
    * @param target
    */
   function removeComment(target) {
-    console.log(event);
-    commentList.removeChild(target);
+    target.remove();
   }
 
   /**
@@ -139,7 +124,7 @@ function ready() {
     showError("An error occurred while transferring the file.");
   }
 
-  function showError(message){
+  function showError(message) {
     alert(message);
   }
 }

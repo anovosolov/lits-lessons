@@ -1,0 +1,121 @@
+/* ==========================================================================
+   Global variables
+   ========================================================================== */
+/* ==========================================================================
+   Mixins
+   ========================================================================== */
+/* ==========================================================================
+   General styles
+   ========================================================================== */
+* {
+  box-sizing: border-box; }
+
+/*Self clear from float */
+.group:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+body, html {
+  font-size: 16px;
+  font-family: 'Lato', sans-serif;
+  color: #333; }
+
+main {
+  width: 600px;
+  margin: auto; }
+
+/*
+   Form elements
+   ========================================================================== */
+form {
+  border: none;
+  width: 100%;
+  margin: 20px auto;
+  text-align: center; }
+  form > div {
+    margin: 20px; }
+
+input, textarea, .btn {
+  width: 100%;
+  padding: 10px;
+  line-height: 1.2;
+  border-radius: 8px;
+  border: 1px solid #040743;
+  background-color: transparent;
+  -webkit-appearance: none;
+  transition: color 0.25s ease-out; }
+  input:focus, textarea:focus, .btn:focus {
+    outline: none;
+    border-color: #d5110a; }
+  input[disabled], textarea[disabled], .btn[disabled] {
+    opacity: .25;
+    cursor: not-allowed;
+    pointer-events: none; }
+
+textarea {
+  min-height: 100px; }
+
+input:invalid:not(:focus):not(:placeholder-shown),
+textarea:invalid:not(:focus):not(:placeholder-shown) {
+  border: 1px solid #d5110a; }
+
+input:valid, textarea:valid {
+  border: 1px solid green; }
+
+input[type=submit] {
+  border: none; }
+
+/*
+   Sys notifications
+   ========================================================================== */
+.notification {
+  font-size: 0.8rem;
+  margin: 5px 0;
+  font-style: italic;
+  text-align: left; }
+
+.notification--error {
+  color: #d5110a; }
+
+/*
+   Button
+   ========================================================================== */
+.btn {
+  width: auto;
+  border-color: transparent;
+  background-color: #d5110a;
+  color: #fff;
+  text-align: center; }
+  .btn:hover, .btn:focus {
+    border-color: transparent;
+    background-color: #bd0f09; }
+
+.btn.btn--circle {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0;
+  border-radius: 100%; }
+
+/* ==========================================================================
+   Comment form styles
+   ========================================================================== */
+.comment {
+  position: relative;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #040743;
+  border-radius: 5px; }
+  .comment header {
+    font-size: 0.8em; }
+  .comment:hover .comment__tools {
+    display: block; }
+
+.comment__tools {
+  display: none;
+  position: absolute;
+  bottom: 5px;
+  right: 5px; }
+
+/*# sourceMappingURL=main.css.map */
