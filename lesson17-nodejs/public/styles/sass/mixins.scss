@@ -1,0 +1,8 @@
+/* ==========================================================================
+   Mixins
+   ========================================================================== */
+@mixin selected-day($color){
+  background: -webkit-radial-gradient(center, ellipse cover, $color 50%, rgba(0,0,0,0) 50%);
+  background: -ms-radial-gradient(center, ellipse cover, $color 50%, rgba(0,0,0,0) 50%);
+  background: -webkit-radial-gradient(center, ellipse cover, $color 50%, rgba(0,0,0,0) 50%);
+}

@@ -1,0 +1,47 @@
+.comment{
+  position: relative;
+
+  padding: 10px;
+  margin-bottom: 20px;
+
+  border: 1px solid $dark-blue;
+  border-radius: 5px;
+
+  header{
+    font-size: 0.8em;
+  }
+
+  &:hover {
+    .comment__tools {
+      display: block;
+    }
+  }
+}
+
+
+.comment__tools {
+  display: none;
+
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+/* you can also define the transition style
+   on the base class as well (.repeat-item) */
+.comment.ng-enter,
+.comment.ng-leave {
+  -webkit-transition:0.5s linear all;
+  transition:0.5s linear all;
+}
+
+.comment.ng-enter,
+.comment.ng-leave.ng-leave-active {
+  opacity:0;
+}
+
+.comment.ng-leave,
+.comment.ng-enter.ng-enter-active {
+  opacity:1;
+
+}

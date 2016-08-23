@@ -1,0 +1,28 @@
+.comment{
+  position: relative;
+
+  padding: 10px;
+  margin-bottom: 20px;
+
+  border: 1px solid $dark-blue;
+  border-radius: 5px;
+
+  header{
+    font-size: 0.8em;
+  }
+
+  &:hover {
+    .comment__tools {
+      display: block;
+    }
+  }
+}
+
+
+.comment__tools {
+  display: none;
+
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}

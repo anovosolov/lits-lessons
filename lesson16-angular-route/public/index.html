@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="commentSystemApp">
+<head>
+  <meta charset="UTF-8">
+
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="styles/normalize.css">
+  <link rel="stylesheet" href="styles/main.css">
+
+  <title>Comment system</title>
+
+  <script src="js/angular.js"></script>
+
+  <script src="https://code.angularjs.org/1.5.8/angular-animate.min.js"></script>
+  <script src="js/app.js"></script>
+</head>
+<body ng-controller="CommentListController">
+<header>
+</header>
+
+<main>
+  <form class="comment-form" name="commentForm" ng-submit="addComment()">
+    <div>
+      <input ng-model="comment.name" type="text" placeholder="Your Name" name="name" required >
+      <div  class="notification notification--error" ng-show="commentForm.$submitted || commentForm.name.$touched">
+        <span ng-show="commentForm.name.$invalid">Please, fill in your name, it's required</span>
+      </div>
+    </div>
+
+    <div>
+      <input ng-model="comment.email" type="email" placeholder="Your e-mail" name="email" required value="">
+      <div class="notification notification--error" ng-show="commentForm.$submitted || commentForm.email.$touched">
+        <span ng-show="commentForm.email.$invalid">Please, fill in email, it's required</span>
+      </div>
+    </div>
+
+    <div>
+      <textarea ng-model="comment.message" name="message" placeholder="Please, type message here" required></textarea>
+      <div class="notification notification--error" ng-show="commentForm.$submitted || commentForm.message.$touched">
+        <span ng-show="commentForm.message.$invalid">Please, fill in comment body, it's required</span>
+      </div>
+    </div>
+
+    <input type="submit" class="btn" value="Submit"/>
+  </form>
+
+  <div class="comment-list">
+    <p>Total number of comments: {{comments.length}}</p>
+    <div class="comment" data-id="{{comment.id}}" ng-repeat="comment in comments | orderBy:'createdDate':true track by $index">
+      <header>Added by {{comment.name}}</header>
+      <p>{{comment.message}}</p>
+
+      <footer class="comment__tools">
+        <button ng-click="edit(comment)">Edit</button>
+        <button ng-click="remove(comment)">Remove</button>
+      </footer>
+    </div>
+  </div>
+</main>
+
+<footer>
+
+</footer>
+</body>
+</html>
