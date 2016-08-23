@@ -118,4 +118,19 @@ input[type=submit] {
   bottom: 5px;
   right: 5px; }
 
+/* you can also define the transition style
+   on the base class as well (.repeat-item) */
+.comment.ng-enter,
+.comment.ng-leave {
+  -webkit-transition: 0.5s linear all;
+  transition: 0.5s linear all; }
+
+.comment.ng-enter,
+.comment.ng-leave.ng-leave-active {
+  opacity: 0; }
+
+.comment.ng-leave,
+.comment.ng-enter.ng-enter-active {
+  opacity: 1; }
+
 /*# sourceMappingURL=main.css.map */

@@ -1,39 +1,31 @@
 {
   "comments": [
     {
-      "name": "t",
-      "email": "e@e.com",
-      "message": "t",
-      "createdDate": "2016-08-14T06:11:45.116Z",
-      "id": 2
+      "name": "Khrystynatest4r4r4r4r4r",
+      "email": "example@example.com",
+      "message": "HTML enhanced for web apps!",
+      "id": 11
     },
     {
-      "name": "t",
-      "email": "e@e.com",
-      "message": "tdsff",
-      "createdDate": "2016-08-14T06:12:43.119Z",
-      "id": 3
+      "name": "Khrystyna",
+      "email": "example@example.com",
+      "message": "HTML enhanced for web apps!",
+      "createdDate": "2016-08-20T13:28:08.205Z",
+      "id": 12
     },
     {
-      "name": "tfdsf",
-      "email": "e@e.comfdsff",
-      "message": "tdsff",
-      "createdDate": "2016-08-14T06:12:47.051Z",
-      "id": 4
+      "name": "Khrystyna",
+      "email": "example@example.com",
+      "message": "HTML enhanced for web apps!",
+      "createdDate": "2016-08-20T13:28:14.169Z",
+      "id": 13
     },
     {
-      "name": "tfdsf",
-      "email": "e@e.comfdsff",
-      "message": "tdsfffdsfsf",
-      "createdDate": "2016-08-14T06:12:49.166Z",
-      "id": 5
-    },
-    {
-      "name": "Khrystyna Skvarok",
-      "email": "christina.skvarok@gmail.com",
-      "message": "test",
-      "createdDate": "2016-08-18T19:23:31.387Z",
-      "id": 6
+      "name": "Khrystyna",
+      "email": "example@example.com",
+      "message": "HTML enhanced for web apps!",
+      "createdDate": "2016-08-20T13:28:16.547Z",
+      "id": 14
     }
   ]
 }

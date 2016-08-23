@@ -1,11 +1,11 @@
 // Define the `commentSystemApp` module
-var commentSystemApp = angular.module('commentSystemApp', []);
+var commentSystemApp = angular.module('commentSystemApp', ["ngAnimate"]);
 
 // Define the `commentListController` controller on the `commentSystemApp` module
 commentSystemApp.controller('CommentListController', ["$scope", "$http", function CommentListController($scope, $http) {
   $scope.comment = {
     name: "",
-    email: "",
+    email: "example@example.com",
     message: ""
   };
 
@@ -20,20 +20,71 @@ commentSystemApp.controller('CommentListController', ["$scope", "$http", functio
       });
   }
 
+  function showError(){
+    alert("Sorry! An error ocuured!");
+  }
+
   $scope.addComment = function(){
     if ($scope.commentForm.$invalid) {
       $scope.commentForm.$setSubmitted();
       return;
     }
 
-    $scope.comment.createdDate = new Date();
+    if ($scope.comment.id){
+      $http
+        .put('/comments/' + $scope.comment.id, JSON.stringify($scope.comment))
+        .success(function(data) {
 
+
+          $scope.comments.forEach(function(elem, index){
+            if (elem.id == $scope.comment.id){
+              elem.name = $scope.comment.name;
+              elem.email = $scope.comment.email;
+              elem.message = $scope.comment.message;
+            }
+          });
+
+          // clear form
+          $scope.comment = {};
+          $scope.commentForm.$setPristine();
+          $scope.commentForm.$setUntouched();
+        })
+        .error(showError);
+    }
+    else {
+      $scope.comment.createdDate = new Date();
+      $http
+        .post('/comments', JSON.stringify($scope.comment))
+        .success(function(data) {
+          $scope.comments.push(data);
+
+          // clear form
+          $scope.comment = {};
+          $scope.commentForm.$setPristine();
+          $scope.commentForm.$setUntouched();
+        })
+        .error(showError);
+    }
+  };
+
+  $scope.remove = function(comment){
     $http
-      .post('/comments', JSON.stringify($scope.comment))
-      .success(function(data) {
-        $scope.comments.push(data);
-      });
+      .delete("/comments/" + comment.id)
+      .success(function() {
+        $scope.comments = $scope.comments.filter(function(elem){
+          return elem.id !== comment.id;
+        });
+      })
+      .error(showError);
+  };
 
+  $scope.edit = function(comment){
+    $scope.comment = {
+      name: comment.name,
+      email: comment.email,
+      message: comment.message,
+      id: comment.id
+    };
   };
 
 }]);

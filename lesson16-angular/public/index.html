@@ -11,6 +11,8 @@
   <title>Comment system</title>
 
   <script src="js/angular.js"></script>
+
+  <script src="https://code.angularjs.org/1.5.8/angular-animate.min.js"></script>
   <script src="js/app.js"></script>
 </head>
 <body ng-controller="CommentListController">
@@ -45,9 +47,14 @@
 
   <div class="comment-list">
     <p>Total number of comments: {{comments.length}}</p>
-    <div class="comment" ng-repeat="comment in comments | orderBy:'createdDate':true track by $index">
+    <div class="comment" data-id="{{comment.id}}" ng-repeat="comment in comments | orderBy:'createdDate':true">
       <header>Added by {{comment.name}}</header>
       <p>{{comment.message}}</p>
+
+      <footer class="comment__tools">
+        <button ng-click="edit(comment)">Edit</button>
+        <button ng-click="remove(comment)">Remove</button>
+      </footer>
     </div>
   </div>
 </main>
