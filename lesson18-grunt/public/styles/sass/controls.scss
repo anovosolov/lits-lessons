@@ -1,0 +1,35 @@
+
+/*
+   Button
+   ========================================================================== */
+.btn{
+  height: 50px;
+
+  padding: 10px 20px;
+
+  border: 1px solid #fff;
+  background-color: transparent;
+
+  font-size: 2rem;
+  color: #fff;
+  text-align: center;
+  line-height: 50px;
+  cursor: pointer;
+
+  -webkit-appearance: none;
+  transition: color 0.25s ease-out;
+
+  &:hover{
+    color: darken(#fff, 10);
+  }
+
+  &:focus{
+    outline: none;
+  }
+
+  &[disabled]{
+    opacity: .25;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}

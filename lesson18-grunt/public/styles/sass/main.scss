@@ -1,0 +1,26 @@
+@import "variables";
+@import "mixins";
+
+/* ==========================================================================
+   General styles
+   ========================================================================== */
+*{
+  box-sizing: border-box;
+  font-size: 40px;
+}
+
+/*Self clear from float */
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+body, html {
+  font-size: 16px;
+  font-family: 'Lato', sans-serif;
+}
+
+
+@import "calendar";
